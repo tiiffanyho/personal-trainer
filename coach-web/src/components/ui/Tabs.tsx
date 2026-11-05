@@ -54,7 +54,7 @@ export function PillTabs<T extends string>({ items, value, onChange, label, clas
             aria-selected={active}
             onClick={() => onChange(t.id)}
             className={cn(
-              'h-7 rounded-full border px-3 text-12 transition-colors',
+              'h-7 shrink-0 whitespace-nowrap rounded-full border px-3 text-12 transition-colors',
               active
                 ? 'border-line-strong bg-raised font-semibold text-fg'
                 : 'border-line-strong text-fg-secondary hover:text-fg',
@@ -81,7 +81,7 @@ export function SegmentedTabs<T extends string>({
     <div
       role="tablist"
       aria-label={label}
-      className={cn('flex h-9 items-center gap-1 rounded-lg border border-line bg-surface p-1', className)}
+      className={cn('flex h-9 min-w-0 items-center gap-1 rounded-lg border border-line bg-surface p-1', className)}
     >
       {items.map((t) => {
         const active = t.id === value
@@ -93,7 +93,7 @@ export function SegmentedTabs<T extends string>({
             aria-selected={active}
             onClick={() => onChange(t.id)}
             className={cn(
-              'flex h-7 items-center gap-1.5 rounded-md px-3 text-13 transition-colors',
+              'flex h-7 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-md px-3 text-13 transition-colors',
               active ? 'bg-raised font-semibold text-fg' : 'text-fg-secondary hover:text-fg',
             )}
           >

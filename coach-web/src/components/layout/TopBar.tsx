@@ -21,16 +21,16 @@ function ProgramHeader() {
   const published = [...weeks].reverse().find((w) => w.status === 'published')
 
   return (
-    <div className="flex h-[60px] items-center justify-between gap-6 px-6">
+    <div className="flex h-[60px] items-center justify-between gap-3 px-4 sm:gap-6 sm:px-6">
       <div className="flex min-w-0 items-center gap-3">
         <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-accent text-accent-fg">
           <Dumbbell size={18} />
         </div>
         <div className="min-w-0">
-          <nav aria-label="Breadcrumb" className="truncate text-11 text-fg-muted">
+          <nav aria-label="Breadcrumb" className="hidden truncate text-11 text-fg-muted sm:block">
             {meta.breadcrumb.join(' / ')}
           </nav>
-          <h1 className="truncate text-16 font-semibold tracking-[-0.3px]">{meta.title}</h1>
+          <h1 className="truncate text-14 font-semibold tracking-[-0.3px] sm:text-16">{meta.title}</h1>
         </div>
         <div className="ml-3 hidden shrink-0 items-center gap-1.5 lg:flex">
           {draft && (
@@ -46,25 +46,30 @@ function ProgramHeader() {
         </div>
       </div>
 
-      <div className="flex shrink-0 items-center gap-2">
+      <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
         <span className="hidden text-12 text-fg-muted xl:inline">Saved {saved}</span>
         <IconButton label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} size={32} onClick={toggleTheme}>
           {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
         </IconButton>
-        <IconButton label="Open exercise library" size={32} className="lg:hidden" onClick={() => setLibraryOpen(true)}>
+        <IconButton label="Open exercise library" size={32} className="max-md:hidden lg:hidden" onClick={() => setLibraryOpen(true)}>
           <Library size={16} />
         </IconButton>
-        <IconButton label="Open inspector" size={32} className="xl:hidden" onClick={() => setInspectorOpen(true)}>
+        <IconButton label="Open inspector" size={32} className="max-md:hidden xl:hidden" onClick={() => setInspectorOpen(true)}>
           <PanelRight size={16} />
         </IconButton>
-        <Button icon={<Command size={16} />} trailing={<Kbd>⌘K</Kbd>} onClick={() => setQuickInsertOpen(true)}>
+        <Button
+          icon={<Command size={16} />}
+          trailing={<Kbd>⌘K</Kbd>}
+          onClick={() => setQuickInsertOpen(true)}
+          className="max-md:hidden"
+        >
           Quick Insert
         </Button>
-        <Button icon={<Download size={16} />} className="hidden md:inline-flex">
+        <Button icon={<Download size={16} />} className="max-lg:hidden">
           Export PDF
         </Button>
-        <Button variant="primary" icon={<Send size={16} />} onClick={publish}>
-          Publish
+        <Button variant="primary" icon={<Send size={16} />} onClick={publish} aria-label="Publish week" className="max-sm:w-9 max-sm:px-0">
+          <span className="max-sm:sr-only">Publish</span>
         </Button>
       </div>
     </div>
@@ -87,9 +92,9 @@ function MicrocycleBar() {
   const { weeks, activeWeekId, setActiveWeek, addWeek, meta } = useStudio()
 
   return (
-    <div className="flex h-12 items-center justify-between gap-6 px-6">
+    <div className="flex h-12 items-center justify-between gap-6 px-4 sm:px-6">
       <div className="flex min-w-0 items-center gap-3">
-        <span className="eyebrow">Microcycle</span>
+        <span className="eyebrow hidden sm:inline">Microcycle</span>
         <SegmentedTabs
           label="Program weeks"
           value={activeWeekId}

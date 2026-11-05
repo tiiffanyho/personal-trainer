@@ -75,7 +75,7 @@ export function CellInput({ className, ...rest }: InputHTMLAttributes<HTMLInputE
   return (
     <input
       className={cn(
-        'h-8 w-full min-w-0 rounded-md border border-line-strong bg-field px-2.5 font-mono text-13 text-fg outline-none',
+        'h-8 w-full min-w-0 rounded-md border border-line-strong bg-field px-2.5 font-mono text-13 text-fg outline-none max-sm:px-1.5',
         'focus:border-accent focus:ring-2 focus:ring-accent/25',
         className,
       )}

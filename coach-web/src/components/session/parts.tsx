@@ -1,4 +1,4 @@
-import { useContext, type InputHTMLAttributes, type ReactNode } from 'react'
+import { useContext, useLayoutEffect, useRef, type InputHTMLAttributes, type ReactNode, type TextareaHTMLAttributes } from 'react'
 import { GripVertical, Play } from 'lucide-react'
 import { cn } from '../ui'
 import { HandleContext } from './dnd'
@@ -58,6 +58,36 @@ export function InlineText({ className, ...rest }: InputHTMLAttributes<HTMLInput
     <input
       className={cn(
         '-mx-1 min-w-0 rounded border border-transparent bg-transparent px-1 outline-none transition-colors',
+        'hover:border-line focus:border-accent focus:bg-canvas',
+        className,
+      )}
+      {...rest}
+    />
+  )
+}
+
+/** Multi-line variant of InlineText: grows with its content, Enter commits instead of adding a newline */
+export function InlineTextArea({ className, value, ...rest }: TextareaHTMLAttributes<HTMLTextAreaElement>) {
+  const ref = useRef<HTMLTextAreaElement>(null)
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!el) return
+    el.style.height = 'auto'
+    el.style.height = `${el.scrollHeight}px`
+  }, [value])
+  return (
+    <textarea
+      ref={ref}
+      rows={1}
+      value={value}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault()
+          e.currentTarget.blur()
+        }
+      }}
+      className={cn(
+        '-mx-1 block w-full resize-none overflow-hidden rounded border border-transparent bg-transparent px-1 outline-none transition-colors',
         'hover:border-line focus:border-accent focus:bg-canvas',
         className,
       )}

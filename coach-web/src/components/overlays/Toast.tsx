@@ -17,7 +17,7 @@ export function Toast() {
     <div
       role="status"
       aria-live="polite"
-      className="fixed bottom-6 left-1/2 z-50 flex -translate-x-1/2 items-center gap-3 rounded-lg border border-line-strong bg-surface py-2 pl-4 pr-2 text-13 shadow-xl shadow-black/30"
+      className="fixed bottom-20 left-1/2 z-50 flex max-w-[calc(100vw-32px)] -translate-x-1/2 items-center gap-3 md:bottom-6 rounded-lg border border-line-strong bg-surface py-2 pl-4 pr-2 text-13 shadow-xl shadow-black/30"
     >
       <span>{toast.message}</span>
       {toast.undo && (

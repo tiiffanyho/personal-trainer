@@ -6,7 +6,7 @@ import { Button, cn, Menu, PillTabs } from '../ui'
 import { useActiveDay, useActiveDays, useStudio } from '../../store/useStudio'
 import { dayStats, plural } from '../../lib/metrics'
 import { TierBlock } from './TierBlock'
-import { InlineText } from './parts'
+import { InlineTextArea } from './parts'
 import { tierLetters } from '../../lib/structure'
 
 export const NEW_TIER_DROP_ID = 'new-tier'
@@ -70,16 +70,16 @@ export function SessionBuilder() {
         </dl>
       </div>
 
-      <article className="rounded-2xl border border-line bg-surface p-4">
+      <article className="rounded-2xl border border-line bg-surface p-3 sm:p-4">
         <header className="mb-4 flex items-start gap-3">
           <div className="flex min-w-0 flex-1 flex-col">
-            <InlineText
+            <InlineTextArea
               aria-label="Day title"
               value={day.title}
               onChange={(e) => updateDay({ title: e.target.value })}
-              className="text-20 font-semibold tracking-[-0.5px]"
+              className="text-18 font-semibold tracking-[-0.5px] sm:text-20"
             />
-            <InlineText
+            <InlineTextArea
               aria-label="Day focus"
               value={day.subtitle}
               onChange={(e) => updateDay({ subtitle: e.target.value })}

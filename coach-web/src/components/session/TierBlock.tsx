@@ -51,7 +51,7 @@ export function TierBlock({ tier, index, letter }: TierBlockProps) {
       style={{ transform: CSS.Translate.toString(transform), transition }}
       aria-label={`Tier ${index + 1}: ${tier.title}`}
       className={cn(
-        'relative rounded-xl border bg-raised/40 p-3 transition-colors',
+        'group/tier relative rounded-xl border bg-canvas/60 p-3 transition-colors',
         isDragging && 'z-20 opacity-40',
         isOver ? 'border-accent ring-2 ring-accent/30' : dragging ? 'border-dashed border-line-strong' : 'border-line',
       )}
@@ -87,6 +87,7 @@ export function TierBlock({ tier, index, letter }: TierBlockProps) {
           </span>
         )}
         <Menu
+          className="focus-within:opacity-100 group-hover/tier:opacity-100 [@media(hover:hover)]:opacity-0"
           label={`${tier.title} options`}
           items={[
             ...(tier.layout === 'stack' && tier.entries.length > 1

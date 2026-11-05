@@ -25,7 +25,7 @@ export function Workspace({ library, canvas, inspector }: WorkspaceProps) {
   useEffect(() => {
     if (!anyOpen) return
     const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape' || (e.target as HTMLElement)?.closest('[role=menu]')) return
+      if (e.key !== 'Escape' || (e.target instanceof Element && e.target.closest('[role=menu]'))) return
       useStudio.getState().setLibraryOpen(false)
       useStudio.getState().setInspectorOpen(false)
     }

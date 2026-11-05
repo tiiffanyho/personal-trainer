@@ -1,4 +1,4 @@
-import { useContext, type InputHTMLAttributes, type ReactNode } from 'react'
+import { useContext, useLayoutEffect, useRef, type InputHTMLAttributes, type ReactNode, type TextareaHTMLAttributes } from 'react'
 import { GripVertical, Play } from 'lucide-react'
 import { cn } from '../ui'
 import { HandleContext } from './dnd'
@@ -38,7 +38,7 @@ export function Thumb({ size = 32 }: { size?: 32 | 40 }) {
 
 export function OrderBadge({ children }: { children: ReactNode }) {
   return (
-    <span className="tint-accent flex h-6 w-[30px] shrink-0 items-center justify-center rounded-md border font-mono text-11 font-medium text-accent-strong">
+    <span className="tint-accent flex h-6 w-[30px] shrink-0 items-center justify-center rounded-md border border-transparent font-mono text-11 font-medium text-accent-strong">
       {children}
     </span>
   )
@@ -46,7 +46,7 @@ export function OrderBadge({ children }: { children: ReactNode }) {
 
 export function TierBadge({ n }: { n: number }) {
   return (
-    <span className="tint-accent flex h-[18px] shrink-0 items-center rounded border px-1.5 font-mono text-11 font-medium tracking-wide text-accent-strong">
+    <span className="tint-accent flex h-[18px] shrink-0 items-center rounded border border-transparent px-1.5 font-mono text-11 font-medium tracking-wide text-accent-strong">
       TIER {n}
     </span>
   )
@@ -57,7 +57,37 @@ export function InlineText({ className, ...rest }: InputHTMLAttributes<HTMLInput
   return (
     <input
       className={cn(
-        '-mx-1 min-w-0 rounded border border-transparent bg-transparent px-1 outline-none transition-colors',
+        '-mx-1 min-w-0 rounded border border-transparent bg-transparent px-1 outline-none transition-colors [field-sizing:content]',
+        'hover:border-line focus:border-accent focus:bg-canvas',
+        className,
+      )}
+      {...rest}
+    />
+  )
+}
+
+/** Multi-line variant of InlineText: grows with its content, Enter commits instead of adding a newline */
+export function InlineTextArea({ className, value, ...rest }: TextareaHTMLAttributes<HTMLTextAreaElement>) {
+  const ref = useRef<HTMLTextAreaElement>(null)
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!el) return
+    el.style.height = 'auto'
+    el.style.height = `${el.scrollHeight}px`
+  }, [value])
+  return (
+    <textarea
+      ref={ref}
+      rows={1}
+      value={value}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault()
+          e.currentTarget.blur()
+        }
+      }}
+      className={cn(
+        '-mx-1 block w-full resize-none overflow-hidden rounded border border-transparent bg-transparent px-1 outline-none transition-colors',
         'hover:border-line focus:border-accent focus:bg-canvas',
         className,
       )}
@@ -87,7 +117,7 @@ export function Pill({ children, className }: { children: ReactNode; className?:
   return (
     <span
       className={cn(
-        'inline-flex h-[22px] shrink-0 items-center gap-1 rounded-md border border-line-strong bg-field px-2 font-mono text-11 text-fg-muted',
+        'inline-flex h-[22px] shrink-0 items-center gap-1 rounded-md border border-transparent bg-raised px-2 font-mono text-11 text-fg-muted',
         'focus-within:border-accent',
         className,
       )}

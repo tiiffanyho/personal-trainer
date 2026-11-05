@@ -16,6 +16,7 @@ import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { GripVertical } from 'lucide-react'
 import { TopBar } from './components/layout/TopBar'
 import { Workspace } from './components/layout/Workspace'
+import { MobileBar } from './components/layout/MobileBar'
 import { ExerciseLibrary } from './components/library/ExerciseLibrary'
 import { LibraryCardOverlay, type LibraryDragData } from './components/library/LibraryCard'
 import { NEW_TIER_DROP_ID, SessionBuilder } from './components/session/SessionBuilder'
@@ -166,6 +167,7 @@ export default function App() {
       <div className="flex h-full min-w-0 flex-col">
         <TopBar />
         <Workspace library={<ExerciseLibrary />} canvas={<SessionBuilder />} inspector={<Inspector />} />
+        <MobileBar />
       </div>
       <DragOverlay dropAnimation={null}>{overlay}</DragOverlay>
       <QuickInsert />

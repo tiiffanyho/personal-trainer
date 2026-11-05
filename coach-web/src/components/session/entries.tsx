@@ -92,17 +92,21 @@ function RxPills({ entry }: { entry: Entry }) {
 export function PrimerCard({ entry }: { entry: Entry }) {
   const items = useEntryActions(entry)
   return (
-    <EntryShell entry={entry} className="flex items-center gap-2.5 p-2.5">
+    <EntryShell entry={entry} className="flex flex-wrap items-center gap-x-2.5 gap-y-2 p-2.5">
       <Grip size={14} />
       <Thumb />
       <div className="min-w-0 flex-1">
         <div className="text-13 font-semibold">{name(entry)}</div>
         <div className="line-clamp-2 text-11 text-fg-muted">{subtitle(entry)}</div>
       </div>
-      <div className="flex shrink-0 items-center gap-1">
+      <div className="flex shrink-0 items-center gap-1 max-sm:order-last max-sm:basis-full max-sm:pl-[64px]">
         <RxPills entry={entry} />
       </div>
-      <Menu label={`${name(entry)} options`} items={items} className="opacity-0 group-hover/entry:opacity-100 focus-within:opacity-100" />
+      <Menu
+        label={`${name(entry)} options`}
+        items={items}
+        className="group-hover/entry:opacity-100 focus-within:opacity-100 [@media(hover:hover)]:opacity-0"
+      />
     </EntryShell>
   )
 }
@@ -202,7 +206,7 @@ export function SetTableRow({ entry, order }: { entry: Entry; order: string }) {
                   aria-label={`Remove set ${i + 1}`}
                   disabled={entry.sets.length === 1}
                   onClick={() => removeSet(entry.id, s.id)}
-                  className="flex size-5 items-center justify-center rounded text-fg-muted opacity-0 hover:text-fg group-hover/set:opacity-100 focus:opacity-100 disabled:hidden"
+                  className="flex size-5 items-center justify-center rounded text-fg-muted hover:text-fg group-hover/set:opacity-100 focus:opacity-100 disabled:hidden [@media(hover:hover)]:opacity-0"
                 >
                   <X size={12} />
                 </button>
@@ -291,7 +295,7 @@ export function UnilateralRow({ entry, order }: { entry: Entry; order: string })
         <OrderBadge>{order}</OrderBadge>
         <span className="flex-1 text-14 font-semibold">{name(entry)}</span>
         {regression && (
-          <span className="tint-info inline-flex h-6 items-center gap-1.5 rounded-md border pl-2 pr-1 text-11 font-medium text-info">
+          <span className="tint-info inline-flex h-6 items-center gap-1.5 rounded-md border pl-2 pr-1 text-11 font-medium text-info max-sm:order-last">
             <Link2 size={12} />
             Linked Regression: {regression.name}
             <button

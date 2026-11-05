@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens — mirrored from the Figma variables of
+ * "Desktop — Coach Studio & Program Builder" (dark 5:29 / light 9:361).
+ *
+ * Palette change vs. Figma: every red / green / yellow accent is replaced
+ * by a distinct shade of blue. Because hue no longer separates states,
+ * severity is also carried by icons, fill weight and borders in components.
+ *
+ *   Figma               role        → blue used here
+ *   accent/emerald      accent      → royal blue
+ *   alert/amber         caution     → pale ice / cornflower blue
+ *   alert/rose          critical    → deep navy-cobalt
+ *   info/sky            info        → cyan-blue
+ */
+
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg-canvas: #09090b;
+  --bg-surface: #18181b;
+  --bg-raised: #27272a;
+  --bg-field: #09090b;
+  --border-default: #27272a;
+  --border-strong: #3f3f46;
+
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --text-inverse: #09090b;
+
+  /* was emerald #10b981 / #34d399 */
+  --accent: #3b82f6;
+  --accent-strong: #60a5fa;
+  --accent-fg: #ffffff;
+
+  /* was amber #f59e0b */
+  --caution: #93c5fd;
+  --caution-text: #93c5fd;
+  --caution-fg: #0b1a33;
+
+  /* was rose #f43f5e */
+  --critical: #1d4ed8;
+  --critical-strong: #bfdbfe;
+  --critical-fg: #ffffff;
+
+  /* was sky #38bdf8 */
+  --info: #22d3ee;
+  --info-fg: #062a30;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg-canvas: #f4f4f5;
+  --bg-surface: #ffffff;
+  --bg-raised: #f4f4f5;
+  --bg-field: #ffffff;
+  --border-default: #e4e4e7;
+  --border-strong: #d4d4d8;
+
+  --text-primary: #09090b;
+  --text-secondary: #52525b;
+  --text-muted: #71717a;
+  --text-inverse: #ffffff;
+
+  --accent: #2563eb;
+  --accent-strong: #1d4ed8;
+  --accent-fg: #ffffff;
+
+  --caution: #4f86e8;
+  --caution-text: #2a5bbf;
+  --caution-fg: #ffffff;
+
+  --critical: #1e3a8a;
+  --critical-strong: #1e3a8a;
+  --critical-fg: #ffffff;
+
+  --info: #0891b2;
+  --info-fg: #ffffff;
+}
+
+@theme inline {
+  --color-canvas: var(--bg-canvas);
+  --color-surface: var(--bg-surface);
+  --color-raised: var(--bg-raised);
+  --color-field: var(--bg-field);
+  --color-line: var(--border-default);
+  --color-line-strong: var(--border-strong);
+
+  --color-fg: var(--text-primary);
+  --color-fg-secondary: var(--text-secondary);
+  --color-fg-muted: var(--text-muted);
+  --color-fg-inverse: var(--text-inverse);
+
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-fg: var(--accent-fg);
+  --color-caution: var(--caution);
+  --color-caution-fg: var(--caution-fg);
+  --color-caution-text: var(--caution-text);
+  --color-critical: var(--critical);
+  --color-critical-strong: var(--critical-strong);
+  --color-critical-fg: var(--critical-fg);
+  --color-info: var(--info);
+  --color-info-fg: var(--info-fg);
+
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Figma text styles (size / line-height) */
+  --text-11: 11px;
+  --text-11--line-height: 14px;
+  --text-12: 12px;
+  --text-12--line-height: 16px;
+  --text-13: 13px;
+  --text-13--line-height: 18px;
+  --text-14: 14px;
+  --text-14--line-height: 20px;
+  --text-16: 16px;
+  --text-16--line-height: 22px;
+  --text-20: 20px;
+  --text-20--line-height: 28px;
+  --text-28: 28px;
+  --text-28--line-height: 32px;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    background: var(--bg-canvas);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    line-height: 18px;
+    -webkit-font-smoothing: antialiased;
+  }
+  input[type='search']::-webkit-search-cancel-button,
+  input[type='search']::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+@utility eyebrow {
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Soft tinted background for any tone: bg-tint-[var] is awkward, so use helpers */
+@utility tint-accent {
+  background: color-mix(in oklab, var(--accent) 14%, transparent);
+  border-color: color-mix(in oklab, var(--accent) 45%, transparent);
+}
+@utility tint-caution {
+  background: color-mix(in oklab, var(--caution) 14%, transparent);
+  border-color: color-mix(in oklab, var(--caution) 55%, transparent);
+}
+@utility tint-critical {
+  background: color-mix(in oklab, var(--critical) 22%, transparent);
+  border-color: color-mix(in oklab, var(--critical) 70%, transparent);
+}
+@utility tint-info {
+  background: color-mix(in oklab, var(--info) 12%, transparent);
+  border-color: color-mix(in oklab, var(--info) 45%, transparent);
+}
+
+@keyframes video-progress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}

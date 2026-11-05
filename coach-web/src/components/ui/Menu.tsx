@@ -35,7 +35,7 @@ export function Menu({ label, items, variant = 'bare', className }: MenuProps) {
   }, [open])
 
   return (
-    <div ref={ref} className={cn('relative shrink-0', className)}>
+    <div ref={ref} className={cn('relative shrink-0', className, open && '!opacity-100')}>
       <button
         type="button"
         aria-label={label}

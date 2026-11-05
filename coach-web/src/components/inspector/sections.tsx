@@ -42,7 +42,7 @@ export function VideoPreview({ entry }: { entry: Entry }) {
   const [playing, setPlaying] = useState(false)
   const tempo = entryTempo(entry)
   return (
-    <div className="relative aspect-video overflow-hidden rounded-xl border border-line bg-gradient-to-br from-raised to-line-strong">
+    <div className="relative aspect-video overflow-hidden rounded-xl border border-line bg-gradient-to-br from-raised via-raised to-accent/15">
       <span className="absolute left-3 top-3 rounded bg-black/60 px-1.5 py-0.5 text-11 font-medium text-white">
         Side view · 0:08 loop
       </span>
